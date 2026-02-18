@@ -99,3 +99,5 @@ void Spausdinimas(const vector<Student> &grupe, char pasirinkimas)
         //cout<<setw(10)<<A.egz<<endl;
     }
 }
+/////tesiug njakdsakdaskjdasdnadadad
+///adasdasdasd
