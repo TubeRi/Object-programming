@@ -27,7 +27,7 @@ int main()
 
         if (rezimas == 'f' || rezimas == 'F')
         {
-            FailoSkaitymas("data/studentai1000000.txt", grupe);
+            FailoSkaitymas("data/studentai10000.txt", grupe);
         }
         else
         {

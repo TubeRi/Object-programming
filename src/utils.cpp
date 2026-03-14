@@ -5,13 +5,13 @@
 #include <cctype>
 #include <stdexcept>
 
-int RandomPazymys(std::mt19937& gen)
+int RandomPazymys(std::mt19937 &gen)
 {
     static std::uniform_int_distribution<int> dist(1, 10);
     return dist(gen);
 }
 
-std::string RandomIsSaraso(const std::vector<std::string>& sar, std::mt19937& gen)
+std::string RandomIsSaraso(const std::vector<std::string> &sar, std::mt19937 &gen)
 {
     if (sar.empty())
     {
@@ -22,133 +22,141 @@ std::string RandomIsSaraso(const std::vector<std::string>& sar, std::mt19937& ge
     return sar[dist(gen)];
 }
 
-std::string SkaitytiZodi(const std::string& zinute)
+std::string SkaitytiZodi(const std::string &zinute)
 {
     std::string s;
 
     while (true)
     {
-        std::cout << zinute;
-        std::cin >> s;
-
-        if (std::cin.fail())
+        try
         {
+            std::cout<<zinute;
+            std::cin>>s;
+
+            if(std::cin.fail())
+                throw std::runtime_error("Klaida: nepavyko nuskaityti zodzio.");
+            
+            if(s.empty())
+                throw std::runtime_error("Klaida: zodis negali buti tuscias.");
+            
+            for(char c : s)
+            {
+                unsigned char uc = static_cast<unsigned char>(c);
+                if(!std::isalpha(static_cast<unsigned char>(c)))
+                    throw std::runtime_error("Klaida: zodis turi sudaryti tik raides.");
+            }
+            return ;
+        }
+        catch(const std::exception &e)
+        {
+            std::cout << "Klaida: " << e.what() << "\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Klaida: nepavyko nuskaityti zodzio.\n";
-            continue;
         }
-
-        bool geras = !s.empty();
-
-        for (char c : s)
-        {
-            unsigned char uc = static_cast<unsigned char>(c);
-            if (!std::isalpha(uc))
-            {
-                geras = false;
-                break;
-            }
-        }
-
-        if (geras)
-        {
-            return s;
-        }
-
-        std::cout << "Klaida: galima ivesti tik raides.\n";
     }
 }
 
-char SkaitytiChar(const std::string& zinute, const std::string& galimi)
+char SkaitytiChar(const std::string &zinute, const std::string &galimi)
 {
     char c;
 
     while (true)
     {
-        std::cout << zinute;
-        std::cin >> c;
-
-        if (std::cin.fail())
+        try
         {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Klaida: nepavyko nuskaityti simbolio.\n";
-            continue;
-        }
+            std::cout << zinute;
+            std::cin >> c;
 
-        if (galimi.find(c) != std::string::npos)
-        {
+            if (std::cin.fail())
+                throw std::runtime_error("Klaida: nepavyko nuskaityti simbolio.");
+
+            if (galimi.find(c) == std::string::npos)
+                throw std::invalid_argument("Klaida: ivestas simbolis nera galimas pasirinkimas.");
+
             return c;
         }
-
-        std::cout << "Klaida: netinkamas pasirinkimas.\n";
+        catch (const std::exception &e)
+        {
+            std::cout << "Klaida: " << e.what() << "\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 }
-
-int SkaitytiInt(const std::string& zinute)
+int SkaitytiInt(const std::string &zinute)
 {
     int x;
 
     while (true)
     {
-        std::cout << zinute;
-        std::cin >> x;
-
-        if (!std::cin.fail())
+        try
         {
+            std::cout << zinute;
+            std::cin >> x;
+
+            if (std::cin.fail())
+                throw std::runtime_error("Reikia ivesti sveika skaiciu.");
+
             return x;
         }
-
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Klaida: reikia ivesti sveika skaiciu.\n";
+        catch (const std::exception &e)
+        {
+            std::cout << "Klaida: " << e.what() << "\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 }
-
-double SkaitytiDouble(const std::string& zinute)
+double SkaitytiDouble(const std::string &zinute)
 {
     double x;
 
     while (true)
     {
-        std::cout << zinute;
-        std::cin >> x;
-
-        if (!std::cin.fail())
+        try
         {
+            std::cout << zinute;
+            std::cin >> x;
+
+            if (std::cin.fail())
+                throw std::runtime_error("Reikia ivesti realuji skaiciu.");
+
             return x;
         }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
 
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Klaida: reikia ivesti realuji skaiciu.\n";
+        return x;
     }
 }
 
-int SkaitytiPazymi(const std::string& zinute, bool leistiNuli)
+int SkaitytiPazymi(const std::string &zinute, bool leistiNuli)
 {
     while (true)
     {
-        int x = SkaitytiInt(zinute);
-
-        if (leistiNuli && x == 0)
+        try
         {
-            return 0;
-        }
+            int x = SkaitytiInt(zinute);
 
-        if (x >= 1 && x <= 10)
-        {
+            if (leistiNuli && x == 0)
+            {
+                return 0;
+            }
+
+            if (x >= 1 && x <= 10)
+            {
+                if (leistiNuli)
+                    throw std::runtime_error("Reikia ivesti skaiciu nuo 1 iki 10 arba 0 baigimui.");
+                else
+                    throw std::runtime_error("Reikia ivesti skaiciu nuo 1 iki 10.");
+            }
             return x;
         }
-
-        if (leistiNuli)
+        catch (const std::exception &e)
         {
-            std::cout << "Klaida: galima ivesti skaiciu nuo 1 iki 10 arba 0 baigimui.\n";
-        }
-        else
-        {
-            std::cout << "Klaida: galima ivesti tik skaiciu nuo 1 iki 10.\n";
+            std::cout << "Klaida: " << e.what() << "\n";
         }
     }
 }
