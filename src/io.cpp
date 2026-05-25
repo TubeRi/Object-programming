@@ -96,7 +96,7 @@ void FailoSkaitymas(const std::string& failoVardas, std::vector<Student>& grupe)
     }
 
     Student A;
-    while (fin >> A.pavarde >> A.vardas)
+    while (fin >> A.vardas >> A.pavarde)
     {
         A.paz.clear();
 
@@ -112,4 +112,33 @@ void FailoSkaitymas(const std::string& failoVardas, std::vector<Student>& grupe)
         SkaiciuotiGalutinius(A);
         grupe.push_back(A);
     }
+}
+void IsvestiIFaila(const std::string& pav, const std::vector<Student>& studentai)
+{
+    std::ofstream out(pav);
+
+    if (!out.is_open())
+    {
+        throw std::runtime_error("Nepavyko sukurti failo: " + pav);
+    }
+
+    out << std::left
+        << std::setw(20) << "Vardas"
+        << std::setw(20) << "Pavarde"
+        << std::setw(15) << "Galutinis (Vid.)"
+        << "Galutinis (Med.)\n";
+
+    out << std::string(70, '-') << '\n';
+
+    for (const auto& studentas : studentai)
+    {
+        out << std::left
+            << std::setw(20) << studentas.vardas
+            << std::setw(20) << studentas.pavarde
+            << std::fixed << std::setprecision(2)
+            << std::setw(15) << studentas.rez_vid
+            << studentas.rez_med << '\n';
+    }
+
+    out.close();
 }

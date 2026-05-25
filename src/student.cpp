@@ -1,7 +1,7 @@
 #include "student.h"
 #include <algorithm>
 
-double Mediana(std::vector<int> paz)
+double Mediana( std::vector<int> paz)
 {
     if (paz.empty()) return 0.0;
 

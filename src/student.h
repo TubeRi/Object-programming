@@ -14,7 +14,7 @@ struct Student
     double rez_med = 0.0;
 };
 
-double Mediana(std::vector<int> paz);
+double Mediana( std::vector<int> paz);
 double Vidurkis(const std::vector<int>& paz);
 void SkaiciuotiGalutinius(Student& A);
 

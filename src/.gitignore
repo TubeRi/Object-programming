@@ -44,9 +44,33 @@ Release/
 *.lastbuildstate
 unsuccessfulbuild
 
-# Programuotojo įtraukti
+# VS Code
 .vscode/tasks.json
+.vscode/settings.json
+.vscode/launch.json
 .vs/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+
+# Visual Studio project user files
 *.vcxproj.user
-*.txt
-!kursiokai.txt
+*.vcxproj.filters
+
+# Generated data files
+data/*
+!data/.gitkeep
+
+# Output result files
+rezultatai.txt
+vargsiukai.txt
+kietiakai.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
