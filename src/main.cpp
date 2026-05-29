@@ -39,7 +39,6 @@ int main()
                 {"data/sugeneruotas10000000.txt", 10000000}
             };
 
-            // ===== TEST 1: File generation =====
             cout << "\n===== 1 TYRIMAS: Failu kurimas =====\n";
             cout << std::left  << std::setw(40) << "Failas"
                  << std::right << std::setw(15) << "Laikas (s)\n";
@@ -52,8 +51,7 @@ int main()
                      << std::right << std::setw(15)
                      << std::fixed << std::setprecision(6) << t << " s\n";
             }
-
-            // ===== TEST 2: Data processing =====
+            
             cout << "\n===== 2 TYRIMAS: Duomenu apdorojimas =====\n";
 
             for (auto& [pav, kiek] : failai)
@@ -96,7 +94,7 @@ int main()
         }
         else
         {
-            // ===== ORIGINAL INTERACTIVE CODE =====
+            
             Student A;
             vector<Student> grupe;
 
