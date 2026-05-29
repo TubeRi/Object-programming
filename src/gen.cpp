@@ -9,21 +9,21 @@
 
 void GeneruotiFaila(const std::string& pav, int studentuKiekis)
 {
-    std::filesystem::path p(pav);
+    std::filesystem::path p(pav); // stringas paverciamas i filesystem path objekta
     if (p.has_parent_path())
-        std::filesystem::create_directories(p.parent_path());
+        std::filesystem::create_directories(p.parent_path()); //foleris
 
     std::ofstream out(pav);
 
     if (!out)
         throw std::runtime_error("Nepavyko sukurti failo");
 
-    std::mt19937 gen(std::random_device{}());
+    std::mt19937 gen(std::random_device{}()); // Mersenne Twister generator
     std::uniform_int_distribution<int> dist(1, 10);
 
     const int ndKiekis = 15;
 
-    // ---------------- HEADER ----------------
+    // ---------------- HEADERIS ----------------
     out << std::left
         << std::setw(20) << "Vardas"
         << std::setw(20) << "Pavarde";
