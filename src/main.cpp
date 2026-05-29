@@ -47,7 +47,7 @@ int main()
 
             for (auto& [pav, kiek] : failai)
             {
-                double t = Laikas([&]() { GeneruotiFaila(pav, kiek); });
+                double t = Laikas([&]() { GeneruotiFaila(pav, kiek); }); // [&] kintamieji perduodami pagal reference
                 cout << std::left  << std::setw(40) << pav
                      << std::right << std::setw(15)
                      << std::fixed << std::setprecision(6) << t << " s\n";
@@ -97,7 +97,13 @@ int main()
         {
             
             Student A;
-            vector<Student> grupe;
+            vector<Student> grupe; // dinaminis studentu masyvas, kuriame saugomi studentai kaip objektai --student grupe[100]
+
+            /* Optimizacijai cia butu galima rasyt reserve
+                cia naudoju vector kad dinamiskai butu galima didinti studentu kieki nes pradzioje size = 0, o kai baigiasi gali dideti 2
+            
+            
+            */
 
             char rezimas = pasirinkimas; 
 
